@@ -8,12 +8,23 @@
 
         int SolvePart1()
         {
-            var x = elements.First(x => elements.Any(y => y + x == 2020 && y != x));
+            var x = elements.First(x => elements.Any(y => y + x == 2020));
             return x * (2020 - x);
         }
 
-        public int Solve(int part = 1)
-            => SolvePart1();
+        int SolvePart2()
+        {
+            foreach (var z in elements)
+                if (elements.Any(x => elements.Any(y => y + x == 2020 - z )))
+                {
+                    var x = elements.First(x => elements.Any(y => y + x == 2020 - z ) );
+                    return x * z * (2020 - x - z);
+                }
 
+            return -1;
+        }
+
+        public int Solve(int part = 1)
+            => part == 1 ? SolvePart1() : SolvePart2();
     }
 }
