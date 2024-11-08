@@ -8,7 +8,7 @@ namespace AoC20
         {
             int day = 2;
             int part = 1;
-            bool test = !false;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -39,8 +39,9 @@ namespace AoC20
         static string day2(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-
-            return "";
+            Day02.PwdChecker checker = new();
+            checker.ParseInput(lines);
+            return checker.Solve(part).ToString();
         }
 
     }
