@@ -11,6 +11,9 @@ namespace AoC20.Day06
 
         public int Questions
             => entries.SelectMany(x => x).Distinct().Count();
+
+        public int CommonQuestions
+           => entries.SelectMany(x => x).Distinct().Count(x => entries.All(e => e.Contains(x)));
     }
     
     internal class CustomOfficer
@@ -21,6 +24,6 @@ namespace AoC20.Day06
             => ParseUtils.SplitBy(lines, "").ForEach(x => forms.Add(new CustomForm(x)));
 
         public int Solve(int part = 1)
-            => forms.Sum(f => f.Questions);
+            => part == 1 ? forms.Sum(f => f.Questions) : forms.Sum(f => f.CommonQuestions);
     }
 }
