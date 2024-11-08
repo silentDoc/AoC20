@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 2;
-            int part = 3;
-            bool test = !false;
+            int day = 3;
+            int part = 1;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -48,7 +48,9 @@ namespace AoC20
         static string day3(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day03.SlopeSled sled = new();
+            sled.ParseInput(lines);
+            return sled.Solve(part).ToString();
         }
 
     }
