@@ -7,8 +7,8 @@ namespace AoC20
         static void Main(string[] args)
         {
             int day = 2;
-            int part = 2;
-            bool test = false;
+            int part = 3;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -21,6 +21,7 @@ namespace AoC20
             {
                 1 => day1(input, part),
                 2 => day2(input, part),
+                3 => day3(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -42,6 +43,12 @@ namespace AoC20
             Day02.PwdChecker checker = new();
             checker.ParseInput(lines);
             return checker.Solve(part).ToString();
+        }
+
+        static string day3(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
 
     }
