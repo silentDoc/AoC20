@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using AoC20.Common;
+using System.Text.RegularExpressions;
 
 namespace AoC20.Day04
 {
@@ -79,19 +80,8 @@ namespace AoC20.Day04
         List<Passport> passes = new();
         public void ParseInput(List<string> lines)
         {
-            List<string> set = new();
-
-            foreach (string line in lines)
-            {
-                if (line == "")
-                {
-                    passes.Add(new Passport(set));
-                    set.Clear();
-                }
-                else
-                    set.Add(line);
-            }
-            passes.Add(new Passport(set));
+            var entries = ParseUtils.SplitBy(lines, "");
+            entries.ForEach(x => passes.Add(new Passport(x)));
         }
 
         public int Solve(int part = 1)
