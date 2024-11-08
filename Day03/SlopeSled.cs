@@ -18,19 +18,20 @@ namespace AoC20.Day03
             Enumerable.Range(0, lines.Count).ToList().ForEach(x => ParseLine(lines[x], x));
         }
 
-        int SolvePart1()
+        long CheckSlope(int incRight, int incDown)
         {
             int x = 0; 
             int trees = 0;
 
-            for (int y = 0; y < MapHeight; y++, x = (x + 3) % MapWidth)
+            for (int y = 0; y < MapHeight; y+= incDown, x = (x + incRight) % MapWidth)
                 trees += (Map[(x, y)] == '#') ? 1 : 0;
 
             return trees;
         }
 
-        public int Solve(int part = 1)
-            => SolvePart1();
+        public long Solve(int part = 1)
+            => part == 1 ? CheckSlope(3, 1)
+                         : CheckSlope(1, 1) * CheckSlope(3, 1) * CheckSlope(5, 1) * CheckSlope(7, 1) * CheckSlope(1, 2);
 
     }
 }
