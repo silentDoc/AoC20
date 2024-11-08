@@ -3,6 +3,7 @@
     internal class ReportFinder
     {
         List<int> elements = new List<int>();
+
         public void ParseInput(List<string> input)
             => elements = input.Select(x => int.Parse(x)).ToList();
 
@@ -20,7 +21,6 @@
                     var x = elements.First(x => elements.Any(y => y + x == 2020 - z ) );
                     return x * z * (2020 - x - z);
                 }
-
             return -1;
         }
 
