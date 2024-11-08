@@ -21,6 +21,9 @@ namespace AoC20.Day02
 
         public bool CompliesPolicy
             => Low <= Pwd.Count(x => x==Letter) && High >= Pwd.Count(y => y==Letter);
+
+        public bool CompliesPolicyPart2
+            => (Pwd[Low-1]==Letter) ^ (Pwd[High-1] == Letter);  // Xor
     }
 
     internal class PwdChecker
@@ -31,6 +34,6 @@ namespace AoC20.Day02
             => lines.ForEach(x => policies.Add(new Element(x)));
 
         public int Solve(int part = 1)
-            => policies.Count(x => x.CompliesPolicy);
+            => part == 1 ? policies.Count(x => x.CompliesPolicy) : policies.Count(x => x.CompliesPolicyPart2);
     }
 }
