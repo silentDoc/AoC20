@@ -31,7 +31,13 @@
         public void ParseInput(List<string> lines)
             => lines.ForEach(x => passes.Add(new BoardingPass(x)));
 
+        public int FindEmptySeat()
+        {
+            var ids = passes.Select(x => x.SeatId);
+            return ids.First(x => !ids.Contains(x + 1) && ids.Contains(x + 2)) + 1;
+        }
+
         public int Solve(int part = 1)
-            => passes.Max(x => x.SeatId);
+            => part == 1 ? passes.Max(x => x.SeatId) : FindEmptySeat();
     }
 }
