@@ -3,11 +3,10 @@
     internal class Bag
     {
         public string Color;
+        public Dictionary<Bag, int> Contents = new();
 
         public Bag(string color)
             => Color = color;
-
-        public Dictionary<Bag, int> Contents = new();
 
         public bool ContainsBag(string color)
             => Contents.Any(c => c.Key.Color == color) || Contents.Any(c => c.Key.ContainsBag(color));
@@ -18,7 +17,7 @@
 
     internal class LuggageProcessor
     {
-        List<Bag> Bags = new();
+        List<Bag> Bags = [];
 
         public void ParseLine(string inputLine)
         {
@@ -30,7 +29,7 @@
             if (parts[1] == "no other bags.")
                 return;
 
-            var contents = parts[1].Replace(".", "").Replace("bags", "").Replace("bag", "").
+            var contents = parts[1].Replace(".", "").Replace("bags", ""). Replace("bag", "").
                                     Split(",", StringSplitOptions.TrimEntries);
 
             foreach (var content in contents)
