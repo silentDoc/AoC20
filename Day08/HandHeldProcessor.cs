@@ -1,4 +1,6 @@
-﻿namespace AoC20.Day08
+﻿using System.ComponentModel;
+
+namespace AoC20.Day08
 {
     public class CodeLine
     {
@@ -45,7 +47,56 @@
             }
         }
 
+        private bool IsInLoop(out int acumOut)
+        {
+            int ptr = 0;
+            int acum = 0;
+            acumOut = 0;
+            HashSet<int> executedInstructions = new();
+
+            while (ptr>=0 && ptr<sourceCode.Count)
+            {
+                if (!executedInstructions.Add(ptr))
+                {
+                    acumOut = -1;
+                    return true;
+                }
+
+                var ins = sourceCode[ptr];
+
+                if (ins.Instruction == "acc")
+                    acum += ins.Argument;
+
+                ptr += (ins.Instruction == "jmp") ? ins.Argument : 1;
+            }
+            acumOut = acum;
+            return false;
+        }
+
+        private int SolvePart2()
+        {
+            // Bruteforce ? :P
+            int acum = 0;
+            List<CodeLine> sourceCodeCopy = new();
+            sourceCode.ForEach(x => sourceCodeCopy.Add(new CodeLine(x.Instruction, x.Argument)));
+
+            for (int i = sourceCode.Count - 1; i >= 0; i--)
+            {
+                if (sourceCode[i].Instruction == "acc")
+                    continue;
+
+                sourceCode[i].Instruction = (sourceCode[i].Instruction == "nop") ? "jmp" : "nop";
+
+                if (!IsInLoop(out acum))
+                    return acum;
+
+                sourceCode[i].Instruction = sourceCodeCopy[i].Instruction;
+            }
+            return -1;
+
+        }
+
         public int Solve(int part = 1)
-            => SolvePart1();
+            => part == 1 ? SolvePart1() : SolvePart2();
     }
 }
