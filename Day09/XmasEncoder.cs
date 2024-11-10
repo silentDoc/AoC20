@@ -21,7 +21,35 @@
             return -1;
         }
 
+        long SolvePart2()
+        {
+            int position = 0;
+
+            for (int i = pre; i < numbers.Count; i++)
+                if (!Check(i))
+                {
+                    position = i;
+                    break;
+                }
+
+            for (int i = position; i > 0; i--)
+            {
+                int amount = 1;
+                var checkRange = numbers[(i - amount)..i];
+                while (checkRange.Sum() < numbers[position])
+                {
+                    amount++;
+                    checkRange = numbers[(i - amount)..i];
+                }
+
+                if (checkRange.Sum() == numbers[position])
+                    return checkRange.Min() + checkRange.Max();
+            }
+            
+            return -1;
+        }
+
         public long Solve(int part = 1)
-            => SolvePart1();
+            => part == 1 ? SolvePart1() : SolvePart2();
     }
 }
