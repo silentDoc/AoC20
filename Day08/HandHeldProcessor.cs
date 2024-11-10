@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace AoC20.Day08
+﻿namespace AoC20.Day08
 {
     public class CodeLine
     {
@@ -27,38 +25,17 @@ namespace AoC20.Day08
         public void ParseInput(List<string> lines)
             => lines.ForEach(ParseLine);
 
-        private int SolvePart1()
-        {
-            int ptr = 0;
-            int acum = 0;
-            HashSet<int> executedInstructions = new();
-
-            while (true)
-            {
-                if (!executedInstructions.Add(ptr))
-                    return acum;
-
-                var ins = sourceCode[ptr];
-
-                if (ins.Instruction == "acc")
-                    acum += ins.Argument;
-
-                ptr += (ins.Instruction == "jmp") ? ins.Argument : 1;
-            }
-        }
-
         private bool IsInLoop(out int acumOut)
         {
             int ptr = 0;
             int acum = 0;
-            acumOut = 0;
             HashSet<int> executedInstructions = new();
 
             while (ptr>=0 && ptr<sourceCode.Count)
             {
                 if (!executedInstructions.Add(ptr))
                 {
-                    acumOut = -1;
+                    acumOut = acum;
                     return true;
                 }
 
@@ -73,13 +50,17 @@ namespace AoC20.Day08
             return false;
         }
 
+        private int SolvePart1()
+        {
+            int acum;
+            IsInLoop(out acum);
+            return acum;
+        }
+
         private int SolvePart2()
         {
             // Bruteforce ? :P
             int acum = 0;
-            List<CodeLine> sourceCodeCopy = new();
-            sourceCode.ForEach(x => sourceCodeCopy.Add(new CodeLine(x.Instruction, x.Argument)));
-
             for (int i = sourceCode.Count - 1; i >= 0; i--)
             {
                 if (sourceCode[i].Instruction == "acc")
@@ -90,10 +71,9 @@ namespace AoC20.Day08
                 if (!IsInLoop(out acum))
                     return acum;
 
-                sourceCode[i].Instruction = sourceCodeCopy[i].Instruction;
+                sourceCode[i].Instruction = (sourceCode[i].Instruction == "nop") ? "jmp" : "nop";
             }
             return -1;
-
         }
 
         public int Solve(int part = 1)
