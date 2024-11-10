@@ -8,7 +8,7 @@ namespace AoC20
         {
             int day = 8;
             int part = 1;
-            bool test = !false;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -93,7 +93,9 @@ namespace AoC20
         static string day8(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day08.HandHeldProcessor processor = new();
+            processor.ParseInput(lines);
+            return processor.Solve(part).ToString();
         }
     }
 }
