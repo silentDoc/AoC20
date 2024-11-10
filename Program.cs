@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 8;
-            int part = 2;
-            bool test = false;
+            int day = 9;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -27,6 +27,7 @@ namespace AoC20
                 6 => day6(input, part),
                 7 => day7(input, part),
                 8 => day8(input, part),
+                9 => day9(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -96,6 +97,11 @@ namespace AoC20
             Day08.HandHeldProcessor processor = new();
             processor.ParseInput(lines);
             return processor.Solve(part).ToString();
+        }
+        static string day9(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
