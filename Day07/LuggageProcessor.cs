@@ -11,6 +11,9 @@
 
         public bool ContainsBag(string color)
             => Contents.Any(c => c.Key.Color == color) || Contents.Any(c => c.Key.ContainsBag(color));
+
+        public int CountContents()
+            => Contents.Sum(x => x.Value * (1 + x.Key.CountContents()));
     }
 
     internal class LuggageProcessor
@@ -19,7 +22,6 @@
 
         public void ParseLine(string inputLine)
         {
-            
             var parts = inputLine.Split(" bags contain ", StringSplitOptions.TrimEntries);
             var color = parts[0];
             
@@ -28,9 +30,7 @@
             if (parts[1] == "no other bags.")
                 return;
 
-            var contents = parts[1].Replace(".", "").
-                                    Replace("bags", "").
-                                    Replace("bag", "").
+            var contents = parts[1].Replace(".", "").Replace("bags", "").Replace("bag", "").
                                     Split(",", StringSplitOptions.TrimEntries);
 
             foreach (var content in contents)
@@ -53,6 +53,6 @@
             => input.ForEach(ParseLine);
 
         public int Solve(int part = 1)
-            => Bags.Count(x => x.ContainsBag("shiny gold"));
+            => part == 1 ? Bags.Count(x => x.ContainsBag("shiny gold")) : Bags.First(x => x.Color== "shiny gold").CountContents();
     }
 }
