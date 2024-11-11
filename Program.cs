@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 10;
-            int part = 2;
-            bool test = false;
+            int day = 11;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -29,6 +29,7 @@ namespace AoC20
                 8 => day8(input, part),
                 9 => day9(input, part),
                 10 => day10(input, part),
+                11 => day11(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -113,6 +114,12 @@ namespace AoC20
             Day10.JoltConnector conn = new();
             conn.ParseInput(lines);
             return conn.Solve(part).ToString();
+        }
+
+        static string day11(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
