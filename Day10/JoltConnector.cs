@@ -18,7 +18,20 @@ namespace AoC20.Day10
             return dict[1] * dict[3];
         }
 
-        public int Solve(int part = 1)
-            => SolvePart1();
+        long SolvePart2()
+        {
+            var conns = connectors.Prepend(0).OrderByDescending(x => x);
+            Dictionary<int, long> res = new();
+
+            res[connectors.Max() + 3] = 1;
+
+            foreach (var conn in conns)
+                res[conn] = Enumerable.Range(1,3).Sum(i => res.ContainsKey(conn + i) ? res[conn + i] : 0);
+            
+            return res[0];
+        }
+
+        public long Solve(int part = 1)
+            => part ==1 ?  SolvePart1() : SolvePart2();
     }
 }
