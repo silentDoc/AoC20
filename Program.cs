@@ -128,7 +128,9 @@ namespace AoC20
         static string day12(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day12.ShipNavigator navi = new();
+            navi.ParseInput(lines);
+            return navi.Solve(part).ToString();
         }
     }
 }
