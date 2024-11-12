@@ -34,8 +34,8 @@ namespace AoC20.Day12
         Coord2D TurnLeft(Coord2D currentDirection)
            => currentDirection switch
            {
-               (0, -1) => Direction.West,     // N -> W
-               (-1, 0) => Direction.South,    // W -> S
+               (0, -1)  => Direction.West,    // N -> W
+               (-1, 0)  => Direction.South,   // W -> S
                (0,  1)  => Direction.East,    // S -> E
                (1,  0)  => Direction.North,   // E -> N
                _ => throw new Exception("Invalid direction " + currentDirection.ToString())
@@ -51,41 +51,13 @@ namespace AoC20.Day12
                 _ => throw new Exception("Invalid direction " + currentDirection.ToString())
             };
 
-        int SolvePart1()
-        {
-            foreach (var step in Steps)
-            {
-                CurrentPosition += step.Action switch
-                {
-                    'N' => Direction.North * step.Amount,
-                    'S' => Direction.South * step.Amount,
-                    'E' => Direction.East * step.Amount,
-                    'W' => Direction.West * step.Amount,
-                    _ => (0, 0)
-                };
-
-                if (step.Action == 'R')
-                    for (int i = 0; i < step.Amount / 90; i++)
-                        CurrentDir = TurnRight(CurrentDir);
-
-                if (step.Action == 'L')
-                    for (int i = 0; i < step.Amount / 90; i++)
-                        CurrentDir = TurnLeft(CurrentDir);
-
-                if (step.Action == 'F')
-                    CurrentPosition += CurrentDir * step.Amount;
-            }
-
-            return CurrentPosition.Manhattan((0, 0));
-        }
-
-        int SolvePart2()
+        int Navigate(int part=1)
         {
             Coord2D waypoint = (10, -1);    // 10 East, 1 north
 
             foreach (var step in Steps)
             {
-                waypoint += step.Action switch
+                Coord2D movAmount = step.Action switch
                 {
                     'N' => Direction.North * step.Amount,
                     'S' => Direction.South * step.Amount,
@@ -94,22 +66,38 @@ namespace AoC20.Day12
                     _ => (0, 0)
                 };
 
+                if(part==1)
+                    CurrentPosition += movAmount;
+                else
+                    waypoint += movAmount; 
+
+
                 if (step.Action == 'R')
                     for (int i = 0; i < step.Amount / 90; i++)
-                        waypoint = (-1*waypoint.y, waypoint.x);
+                        if(part==1)
+                            CurrentDir = TurnRight(CurrentDir);
+                        else
+                            waypoint = (-1 * waypoint.y, waypoint.x);
+                
 
                 if (step.Action == 'L')
                     for (int i = 0; i < step.Amount / 90; i++)
-                        waypoint = (waypoint.y, -1* waypoint.x);
+                        if(part == 1)
+                            CurrentDir = TurnLeft(CurrentDir);
+                        else
+                            waypoint = (waypoint.y, -1 * waypoint.x);
 
                 if (step.Action == 'F')
-                    CurrentPosition += waypoint * step.Amount;
+                    if (part == 1)
+                        CurrentPosition += CurrentDir * step.Amount;
+                    else
+                        CurrentPosition += waypoint * step.Amount;
             }
 
             return CurrentPosition.Manhattan((0, 0));
         }
 
         public int Solve(int part = 1)
-            => part ==1 ? SolvePart1() : SolvePart2();
+            => Navigate(part);
     }
 }
