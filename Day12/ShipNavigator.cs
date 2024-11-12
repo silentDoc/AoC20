@@ -79,7 +79,37 @@ namespace AoC20.Day12
             return CurrentPosition.Manhattan((0, 0));
         }
 
+        int SolvePart2()
+        {
+            Coord2D waypoint = (10, -1);    // 10 East, 1 north
+
+            foreach (var step in Steps)
+            {
+                waypoint += step.Action switch
+                {
+                    'N' => Direction.North * step.Amount,
+                    'S' => Direction.South * step.Amount,
+                    'E' => Direction.East * step.Amount,
+                    'W' => Direction.West * step.Amount,
+                    _ => (0, 0)
+                };
+
+                if (step.Action == 'R')
+                    for (int i = 0; i < step.Amount / 90; i++)
+                        waypoint = (-1*waypoint.y, waypoint.x);
+
+                if (step.Action == 'L')
+                    for (int i = 0; i < step.Amount / 90; i++)
+                        waypoint = (waypoint.y, -1* waypoint.x);
+
+                if (step.Action == 'F')
+                    CurrentPosition += waypoint * step.Amount;
+            }
+
+            return CurrentPosition.Manhattan((0, 0));
+        }
+
         public int Solve(int part = 1)
-            => SolvePart1();
+            => part ==1 ? SolvePart1() : SolvePart2();
     }
 }
