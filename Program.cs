@@ -6,7 +6,7 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 11;
+            int day = 12;
             int part = 1;
             bool test = false;
             int testNum = 0;
@@ -30,6 +30,7 @@ namespace AoC20
                 9 => day9(input, part),
                 10 => day10(input, part),
                 11 => day11(input, part),
+                12 => day12(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -122,6 +123,12 @@ namespace AoC20
             Day11.SeatSolver solver = new();
             solver.ParseInput(lines);
             return solver.Solve(part).ToString();
+        }
+
+        static string day12(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
