@@ -4,10 +4,13 @@
     {
         int TimeStamp = 0;
         List<int> buses = [];
+        List<string> splittedInput = [];
+
         public void ParseInput(List<string> lines)
         {
             TimeStamp = int.Parse(lines[0]);
-            buses = lines[1].Split(",").Where(x => x!= "x").Select(int.Parse).ToList();
+            splittedInput = lines[1].Split(",", StringSplitOptions.TrimEntries).ToList();
+            buses = splittedInput.Where(x => x!= "x").Select(int.Parse).ToList();
         }
 
         long FindFirstBus()
@@ -18,7 +21,26 @@
             return (minBus - TimeStamp) * id;
         }
 
+        long WinGoldCoin()
+        {
+            var indexes = buses.Select(x => x.ToString()).Select(x => splittedInput.IndexOf(x)).ToList();
+            var busesWithIndex = buses.Zip(indexes).ToList();
+
+            long step = busesWithIndex[0].First; // Bus
+            long mins = 0L;
+
+            foreach (var (bus, index) in busesWithIndex.Skip(1))
+            {
+                while ((mins + index) % bus != 0)
+                    mins += step;
+
+                step *= bus;
+            }
+
+            return mins;
+        }
+
         public long Solve(int part = 1)
-            => FindFirstBus();
+            => part ==1 ?  FindFirstBus() : WinGoldCoin();
     }
 }
