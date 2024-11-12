@@ -1,4 +1,6 @@
-﻿namespace AoC20.Day13
+﻿using System.Xml;
+
+namespace AoC20.Day13
 {
     internal class BusStop
     {
@@ -24,17 +26,16 @@
         long WinGoldCoin()
         {
             var indexes = buses.Select(x => x.ToString()).Select(x => splittedInput.IndexOf(x)).ToList();
-            var busesWithIndex = buses.Zip(indexes).ToList();
 
-            long step = busesWithIndex[0].First; // Bus
+            long step = buses[0]; // Bus
             long mins = 0L;
 
-            foreach (var (bus, index) in busesWithIndex.Skip(1))
+            for(int i =1; i<buses.Count;i++)
             {
-                while ((mins + index) % bus != 0)
+                while ((mins + indexes[i]) % buses[i] != 0)
                     mins += step;
 
-                step *= bus;
+                step *= buses[i];
             }
 
             return mins;
