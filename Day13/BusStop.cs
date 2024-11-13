@@ -24,8 +24,7 @@
         long WinGoldCoin()
         {
             var indexes = buses.Select(x => x.ToString()).Select(x => splittedInput.IndexOf(x)).ToList();
-
-            long step = buses[0]; // Bus
+            long step = buses[0]; 
             long mins = 0L;
 
             for(int i =1; i<buses.Count;i++)
