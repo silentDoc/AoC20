@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace AoC20.Day13
+﻿namespace AoC20.Day13
 {
     internal class BusStop
     {
@@ -37,10 +35,8 @@ namespace AoC20.Day13
 
                 step *= buses[i];
             }
-
             return mins;
         }
-
         public long Solve(int part = 1)
             => part ==1 ?  FindFirstBus() : WinGoldCoin();
     }

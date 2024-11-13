@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 13;
-            int part = 2;
-            bool test = false;
+            int day = 14;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -32,6 +32,7 @@ namespace AoC20
                 11 => day11(input, part),
                 12 => day12(input, part),
                 13 => day13(input, part),
+                14 => day14(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -139,6 +140,12 @@ namespace AoC20
             Day13.BusStop busStop = new();
             busStop.ParseInput(lines);
             return busStop.Solve(part).ToString();
+        }
+
+        static string day14(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
