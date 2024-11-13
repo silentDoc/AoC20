@@ -6,29 +6,35 @@
         public void ParseInput(List<string> lines)
             => nums = lines[0].Split(",").Select(int.Parse).ToList();
 
-        int PlayGame(int endTurn)
+        long PlayGame(long endTurn)
         {
-            int turn = nums.Count;
+            Dictionary<long, long[]> last = new();
+
+            for (int i = 0; i < nums.Count-1; i++)
+                last[nums[i]]= [i];
+
+            long turn = nums.Count;
+            long num = nums[^1];
 
             while (turn != endTurn)
             {
-                var num = nums[^1];
-                if (nums.Count(x => x == num) == 1)
-                    nums.Add(0);
+                if (!last.ContainsKey(num))
+                {
+                    last[num] = [turn - 1];
+                    num = 0;
+                }
                 else
                 {
-                    int last = nums.Count-1;
-                    int secondToLast = Enumerable.Range(0,nums.Count-1).Last( x=> nums[x]==num);
-                    nums.Add(last-secondToLast);
+                    last[num] = [turn - 1, last[num][0]];
+                    num = last[num][0] - last[num][1];
                 }
-
                 turn++;
             }
-            return nums[^1];
+            return num;
         }
 
-        public int Solve(int part = 1)
-            => PlayGame(2020);
+        public long Solve(int part = 1)
+            => part == 1 ? PlayGame(2020) : PlayGame(30000000);
 
     }
 }
