@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace AoC20.Day14
 {
@@ -16,8 +14,7 @@ namespace AoC20.Day14
             InsType = inputLine.StartsWith("mask") ? InstructionType.mask : InstructionType.memset;
             var parts = inputLine.Split(" = ", StringSplitOptions.TrimEntries);
             Value = parts[1];
-            if (InsType == InstructionType.memset)
-                MemPos = int.Parse(parts[0].Replace("mem[", "").Replace("]", ""));
+            MemPos = (InsType == InstructionType.memset) ? int.Parse(parts[0].Replace("mem[", "").Replace("]", "")) : -1;
         }
 
         public long NumValue
@@ -41,8 +38,43 @@ namespace AoC20.Day14
 
             return Convert.ToInt64(sb.ToString(), 2);
         }
+
+        List<string> BuildAddressListRecursive(char[] address)
+        {
+            if (!address.Contains('X'))
+                return [new(address)];
+
+            List<string> retVal = [];
+
+            for (int i = 0; i < address.Count(); i++)
+                if (address[i] == 'X')
+                {
+                    var with0 = address.ToArray();
+                    var with1 = address.ToArray();
+                    with0[i] = '0';
+                    with1[i] = '1';
+
+                    retVal.AddRange(BuildAddressListRecursive(with0));
+                    retVal.AddRange(BuildAddressListRecursive(with1));
+                    break; // Important to not keep processing
+                }
+
+            return retVal;
+        }
+
+        public List<long> BuildAddressList(long address)
+        {
+            var binAddr = Convert.ToString(address, 2);
+            var sb = new StringBuilder();
+            binAddr = binAddr.PadLeft(36, '0');
+
+            for (int i = 0; i < binAddr.Length; i++)
+                sb.Append(Mask[i] == '0' ? binAddr[i] : Mask[i]);
+
+            return BuildAddressListRecursive(sb.ToString().ToCharArray())
+                   .Select(x => Convert.ToInt64(x, 2)).ToList();
+        }
     }
-         
 
     internal class BitMasker
     {
@@ -50,25 +82,26 @@ namespace AoC20.Day14
         public void ParseInput(List<string> lines)
             => lines.ForEach(x => InstructionList.Add(new Instruction(x)));
 
-        long SolvePart1()
+        long SolvePart(int part = 1)
         {
-            Dictionary<int, long> Memory = new();
-
+            Dictionary<long, long> Memory = new();
             BitMaskProcessor masker = new("");
+
             foreach (var ins in InstructionList)
-            {
                 if (ins.InsType == InstructionType.mask)
-                {
                     masker = new(ins.Value);
-                    continue;
+                else if(part ==1)
+                    Memory[ins.MemPos] = masker.GetNum(ins.NumValue);
+                else
+                {
+                    List<long> addresses = masker.BuildAddressList(ins.MemPos);
+                    addresses.ForEach(x => Memory[x] = ins.NumValue);
                 }
-                Memory[ins.MemPos] = masker.GetNum(ins.NumValue);
-            }
 
             return Memory.Values.Sum();
         }
 
         public long Solve(int part = 1)
-            => SolvePart1();
+            => SolvePart(part);
     }
 }
