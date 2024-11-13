@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 14;
-            int part = 2;
-            bool test = false;
+            int day = 15;
+            int part = 1;
+            bool test = !false;
             int testNum = 1;
 
             string input = "./Input/day" + day.ToString("00");
@@ -33,6 +33,7 @@ namespace AoC20
                 12 => day12(input, part),
                 13 => day13(input, part),
                 14 => day14(input, part),
+                15 => day15(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -148,6 +149,12 @@ namespace AoC20
             Day14.BitMasker masker = new();
             masker.ParseInput(lines);
             return masker.Solve(part).ToString();
+        }
+
+        static string day15(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
