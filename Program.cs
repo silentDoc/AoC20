@@ -8,8 +8,8 @@ namespace AoC20
         {
             int day = 15;
             int part = 1;
-            bool test = !false;
-            int testNum = 1;
+            bool test = false;
+            int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
             input += (test) ? "_test" + (testNum > 0 ? testNum.ToString() : "") + ".txt" : ".txt";
@@ -154,7 +154,9 @@ namespace AoC20
         static string day15(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day15.Rambunctious ramb = new();
+            ramb.ParseInput(lines);
+            return ramb.Solve(part).ToString();
         }
     }
 }
