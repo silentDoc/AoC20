@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 15;
-            int part = 2;
-            bool test = false;
+            int day = 16;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -34,6 +34,7 @@ namespace AoC20
                 13 => day13(input, part),
                 14 => day14(input, part),
                 15 => day15(input, part),
+                16 => day16(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -157,6 +158,12 @@ namespace AoC20
             Day15.Rambunctious ramb = new();
             ramb.ParseInput(lines);
             return ramb.Solve(part).ToString();
+        }
+
+        static string day16(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
