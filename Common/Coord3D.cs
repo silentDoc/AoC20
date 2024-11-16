@@ -68,35 +68,14 @@
 
         public IEnumerable<Coord3D> GetNeighbors8()
         {
-            yield return (x -1 , y - 1, z - 1);
-            yield return (x - 1, y    , z - 1);
-            yield return (x - 1, y + 1, z - 1);
-            yield return (x    , y - 1, z - 1);
-            yield return (x    , y    , z - 1);
-            yield return (x    , y + 1, z - 1);
-            yield return (x + 1, y - 1, z - 1);
-            yield return (x + 1, y    , z - 1);
-            yield return (x + 1, y + 1, z - 1);
-
-            yield return (x - 1, y - 1, z);
-            yield return (x - 1, y    , z );
-            yield return (x - 1, y + 1, z);
-            yield return (x    , y - 1, z);
-            //yield return (x  , y    , z);
-            yield return (x    , y + 1, z);
-            yield return (x + 1, y - 1, z);
-            yield return (x + 1, y    , z);
-            yield return (x + 1, y + 1, z);
-
-            yield return (x - 1, y - 1, z + 1);
-            yield return (x - 1, y    , z + 1);
-            yield return (x - 1, y + 1, z + 1);
-            yield return (x    , y - 1, z + 1);
-            yield return (x    , y    , z + 1);
-            yield return (x    , y + 1, z + 1);
-            yield return (x + 1, y - 1, z + 1);
-            yield return (x + 1, y    , z + 1);
-            yield return (x + 1, y + 1, z + 1);
+            for (int i = x - 1; i <= x + 1; i++)
+                for (int j = y - 1; j <= y + 1; j++)
+                    for (int k = z - 1; k <= z + 1; k++)
+                        {
+                            if (i == x && j == y && k == z)
+                                continue;
+                            yield return (i, j, k);
+                        }
         }
 
 

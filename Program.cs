@@ -7,8 +7,8 @@ namespace AoC20
         static void Main(string[] args)
         {
             int day = 17;
-            int part = 2;
-            bool test = false;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
