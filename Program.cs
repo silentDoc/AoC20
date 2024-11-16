@@ -6,9 +6,9 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 18;
+            int day = 19;
             int part = 1;
-            bool test = false;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -37,6 +37,7 @@ namespace AoC20
                 16 => day16(input, part),
                 17 => day17(input, part),
                 18 => day18(input, part),
+                19 => day19(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -184,6 +185,12 @@ namespace AoC20
             Day18.MathParser parser = new();
             parser.ParseInput(lines);
             return parser.Solve(part).ToString();
+        }
+
+        static string day19(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
