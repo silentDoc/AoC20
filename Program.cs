@@ -8,7 +8,7 @@ namespace AoC20
         {
             int day = 19;
             int part = 1;
-            bool test = !false;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -190,7 +190,9 @@ namespace AoC20
         static string day19(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day19.MonsterRegex mRegex = new();
+            mRegex.ParseInput(lines);
+            return mRegex.Solve(part).ToString();
         }
     }
 }
