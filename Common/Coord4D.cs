@@ -60,6 +60,19 @@
             yield return new Coord2D(x - 1, y);
         }
 
+        public IEnumerable<Coord4D> GetNeighbors8()
+        {
+            for (int i = x - 1; i <= x + 1; i++)
+                for (int j = y - 1; j <= y + 1; j++)
+                    for (int k = z - 1; k <= z + 1; k++)
+                        for (int m = t - 1; m <= t + 1; m++)
+                        {
+                            if (i == x && j == y && k == z && m == t)
+                                continue;
+                            yield return (i, j, k, m);
+                        }
+        }
+
         public bool Equals(Coord4D? other)
             => other is null ? false : other.x == x && other.y == y && other.z == z && other.t == t;
 
