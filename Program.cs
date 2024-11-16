@@ -8,7 +8,7 @@ namespace AoC20
         {
             int day = 17;
             int part = 1;
-            bool test = !false;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -172,7 +172,9 @@ namespace AoC20
         static string day17(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            return "";
+            Day17.CubeSystem cubes = new();
+            cubes.ParseInput(lines);
+            return cubes.Solve(part).ToString();
         }
     }
 }
