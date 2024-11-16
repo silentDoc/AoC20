@@ -56,6 +56,50 @@
             yield return new Coord2D(x - 1, y);
         }
 
+        public IEnumerable<Coord3D> GetNeighbors()
+        {
+            yield return (x, y, z - 1);
+            yield return (x, y, z + 1);
+            yield return (x, y - 1, z);
+            yield return (x, y + 1, z);
+            yield return (x - 1, y, z);
+            yield return (x + 1, y, z);
+        }
+
+        public IEnumerable<Coord3D> GetNeighbors8()
+        {
+            yield return (x -1 , y - 1, z - 1);
+            yield return (x - 1, y    , z - 1);
+            yield return (x - 1, y + 1, z - 1);
+            yield return (x    , y - 1, z - 1);
+            yield return (x    , y    , z - 1);
+            yield return (x    , y + 1, z - 1);
+            yield return (x + 1, y - 1, z - 1);
+            yield return (x + 1, y    , z - 1);
+            yield return (x + 1, y + 1, z - 1);
+
+            yield return (x - 1, y - 1, z);
+            yield return (x - 1, y    , z );
+            yield return (x - 1, y + 1, z);
+            yield return (x    , y - 1, z);
+            //yield return (x  , y    , z);
+            yield return (x    , y + 1, z);
+            yield return (x + 1, y - 1, z);
+            yield return (x + 1, y    , z);
+            yield return (x + 1, y + 1, z);
+
+            yield return (x - 1, y - 1, z + 1);
+            yield return (x - 1, y    , z + 1);
+            yield return (x - 1, y + 1, z + 1);
+            yield return (x    , y - 1, z + 1);
+            yield return (x    , y    , z + 1);
+            yield return (x    , y + 1, z + 1);
+            yield return (x + 1, y - 1, z + 1);
+            yield return (x + 1, y    , z + 1);
+            yield return (x + 1, y + 1, z + 1);
+        }
+
+
         public bool Equals(Coord3D? other)
             => other is null ? false : other.x == x && other.y == y && other.z == z;
 
