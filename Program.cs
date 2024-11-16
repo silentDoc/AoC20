@@ -7,7 +7,7 @@ namespace AoC20
         static void Main(string[] args)
         {
             int day = 17;
-            int part = 1;
+            int part = 2;
             bool test = false;
             int testNum = 0;
 
