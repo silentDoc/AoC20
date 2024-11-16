@@ -6,7 +6,7 @@ namespace AoC20
     {
         static void Main(string[] args)
         {
-            int day = 17;
+            int day = 18;
             int part = 1;
             bool test = !false;
             int testNum = 0;
@@ -36,6 +36,7 @@ namespace AoC20
                 15 => day15(input, part),
                 16 => day16(input, part),
                 17 => day17(input, part),
+                18 => day18(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -175,6 +176,12 @@ namespace AoC20
             Day17.CubeSystem cubes = new();
             cubes.ParseInput(lines);
             return cubes.Solve(part).ToString();
+        }
+
+        static string day18(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            return "";
         }
     }
 }
