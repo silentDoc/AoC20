@@ -56,10 +56,7 @@ namespace AoC20.Day19
             return $"({string.Join("|", regexes)})";
         }
 
-        int SolvePart1()
+        public long Solve()
             => messages.Count(x => regex.IsMatch(x));
-
-        public long Solve(int part = 1)
-            => SolvePart1();
     }
 }

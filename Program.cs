@@ -7,7 +7,7 @@ namespace AoC20
         static void Main(string[] args)
         {
             int day = 19;
-            int part = 2;
+            int part = 1;
             bool test = false;
             int testNum = 0;
 
@@ -192,7 +192,7 @@ namespace AoC20
             var lines = File.ReadAllLines(input).ToList();
             Day19.MonsterRegex mRegex = new();
             mRegex.ParseInput(lines, part);
-            return mRegex.Solve(part).ToString();
+            return mRegex.Solve().ToString();
         }
     }
 }
