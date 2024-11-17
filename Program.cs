@@ -109,6 +109,7 @@ namespace AoC20
             processor.ParseInput(lines);
             return processor.Solve(part).ToString();
         }
+
         static string day9(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
@@ -140,6 +141,7 @@ namespace AoC20
             navi.ParseInput(lines);
             return navi.Solve(part).ToString();
         }
+
         static string day13(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
