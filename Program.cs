@@ -7,8 +7,8 @@ namespace AoC20
         static void Main(string[] args)
         {
             int day = 23;
-            int part = 1;
-            bool test = !false;
+            int part = 2;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -228,9 +228,9 @@ namespace AoC20
         static string day23(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            //Day22.CardGame game = new();
-            //game.ParseInput(lines);
-            return "";// game.Solve(part).ToString();
+            Day23.CupCrab crab = new();
+            crab.ParseInput(lines);
+            return crab.Solve(part).ToString();
         }
     }
 }
