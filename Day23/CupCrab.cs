@@ -116,7 +116,6 @@
             long op2 = mapCups[1].next.next.Label;
 
             return (op1 * op2).ToString();
-
         }
 
         public string Solve(int part = 1)

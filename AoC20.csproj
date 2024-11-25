@@ -178,4 +178,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Day24\" />
+  </ItemGroup>
+
 </Project>
