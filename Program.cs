@@ -8,7 +8,7 @@ namespace AoC20
         {
             int day = 24;
             int part = 1;
-            bool test = !false;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -237,9 +237,9 @@ namespace AoC20
         static string day24(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            //Day23.CupCrab crab = new();
-            //crab.ParseInput(lines);
-            return "";// crab.Solve(part).ToString();
+            Day24.HexNavi navi = new();
+            navi.ParseInput(lines);
+            return navi.Solve(part).ToString();
         }
     }
 }
