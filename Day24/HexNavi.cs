@@ -57,6 +57,12 @@ namespace AoC20.Day24
             return current;
         }
 
+        List<Coord2D> GetHexNeighbors(Coord2D position)
+        {
+            List<Coord2D> neighbors = [HexMove(position, "e"), HexMove(position, "w"), HexMove(position, "se"), HexMove(position, "ne"), HexMove(position, "nw"), HexMove(position, "sw")];
+            return neighbors.Where(x => tiles.ContainsKey(x)).ToList();
+        }
+
         int SolvePart1()
         {
             foreach (var walk in directions)
@@ -72,7 +78,47 @@ namespace AoC20.Day24
             return tiles.Values.Count(x => x == true);
         }
 
+        int SolvePart2()
+        {
+            SolvePart1();
+
+            for (int day = 0; day < 100; day++)
+            { 
+                int minX = tiles.Keys.Min(c => c.x) -2;
+                int maxX = tiles.Keys.Max(c => c.x) +2;
+                int minY = tiles.Keys.Min(c => c.x) -2;
+                int maxY = tiles.Keys.Max(c => c.x) +2;
+
+                for (int i = minX; i <= maxX; i++)
+                    for (int j = minY; j <= maxY; j++)
+                    {
+                        Coord2D pos = (i, j);
+                        if (tiles.ContainsKey(pos))
+                            continue;
+                        tiles[pos] = false;
+                    }
+
+                var flipWhite = tiles.Keys.Where(k => tiles[k] == false 
+                                                      && k.x >= minX && k.x <= maxX && k.y >= minY && k.y <= maxY
+                                                      && GetHexNeighbors(k).Count(x => tiles[x]==true) == 2 );
+
+                var flipBlack = tiles.Keys.Where(k => tiles[k] == true
+                                                      && k.x > minX && k.x < maxX && k.y > minY && k.y < maxY);
+
+                flipBlack = flipBlack.Where(k => GetHexNeighbors(k).Count(x => tiles[x] == true) == 0 || GetHexNeighbors(k).Count(x => tiles[x] == true) > 2);
+
+                var tilesToSwitch = flipBlack.Concat(flipWhite).ToHashSet();
+
+                foreach (var tile in tilesToSwitch)
+                    tiles[tile] = !tiles[tile];
+
+                Console.WriteLine("Day " + (day + 1).ToString() + " : Black tiles :" + tiles.Values.Count(x => x == true).ToString());
+            }
+
+            return tiles.Values.Count(x => x == true);
+        }
+
         public int Solve(int part = 1)
-            => SolvePart1();
+            => part ==1 ? SolvePart1() : SolvePart2();
     }
 }
